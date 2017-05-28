@@ -21,7 +21,7 @@ class DemoPiUi(object):
             onprevclick=self.main_menu)
         self.page.add_textbox("Add a mobile UI to your Raspberry Pi project", "h1")
         self.page.add_element("hr")
-        self.page.add_textbox("You can use any static HTML element " + 
+        self.page.add_textbox("You can use any static HTML element " +
             "in your UI and <b>regular</b> <i>HTML</i> <u>formatting</u>.", "p")
         self.page.add_element("hr")
         self.page.add_textbox("Your python code can update page contents at any time.", "p")
@@ -57,11 +57,16 @@ class DemoPiUi(object):
         self.list.add_item("Microwave", chevron=False, toggle=True, ontoggle=functools.partial(self.ontoggle, "microwave"))
         self.page.add_element("hr")
         self.title = self.page.add_textbox("Home Appliance Control", "h1")
-        
+
 
     def page_console(self):
         con = self.ui.console(title="Console", prev_text="Back", onprevclick=self.main_menu)
         con.print_line("Hello Console!")
+
+    def page_chorechart(self):
+        self.page = self.ui.new_ui_page(title="Chore Chart", prev_text="Back",
+            onprevclick=self.main_menu)
+        self.page.add_button("View Chores", self.viewchores)
 
     def main_menu(self):
         self.page = self.ui.new_ui_page(title="PiUi")
@@ -72,6 +77,7 @@ class DemoPiUi(object):
         self.list.add_item("Images", chevron=True, onclick=self.page_images)
         self.list.add_item("Toggles", chevron=True, onclick=self.page_toggles)
         self.list.add_item("Console!", chevron=True, onclick=self.page_console)
+        self.list.add_item("ChoreChart", chevron=True, onclick=self.page_chorechart)
         self.ui.done()
 
 
@@ -102,6 +108,10 @@ class DemoPiUi(object):
 
     def ontoggle(self, what, value):
         self.title.set_text("Toggled " + what + " " + str(value))
+
+    def viewchores(self):
+         print "chores"
+
 
 def main():
   piui = DemoPiUi()
